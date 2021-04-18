@@ -4,3 +4,4 @@ Calculator that can perform all sorts of calculations, from factoring polynomial
  - Master math calculator will run on a command-line interface, similar to database.
  - It will have all of the code from each individual calculator, such as doing synthetic devision.
  - Master math code will also be able to do regular calculations such as multiplication, exponents, and square roots 
+* Note: The file in this repoistory is a draft deing developed. It does not currently work.
