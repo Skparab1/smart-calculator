@@ -1,18 +1,22 @@
 #Math Master Calculator
 import math, shelve
+
 def shelvewrite(textfilename,towrite): #write to text file
     textfilenametxt = textfilename + '.txt'
     writer = shelve.open(str(textfilenametxt))
     writer[str(textfilename)] = towrite
     writer.close()
-def shelveread(textfilename): # read form text file
+
+def shelveread(textfilename): # read from text file
     textfilenametxt = textfilename + '.txt'
     reader = shelve.open(str(textfilenametxt))
     text = reader[str(textfilename)]
     reader.close()
     return text
+
 def clearscreen(): 
     print('\n' * 50)
+
 def num_extractor(toread,numtoscan):
     if True:
         fish = toread
@@ -79,6 +83,7 @@ def num_extractor(toread,numtoscan):
         return  first, second, third
     else:
         return  first, second, third, fourth
+
 def logs():
     global command, memory
     first, second = num_extractor(command,2)
@@ -86,6 +91,7 @@ def logs():
     print('log ',first,second,'  = ',logged)
     memory = memory + '\n' + 'log' + str(first) + str(second) + ' =' + str(logged)
     shelvewrite('mastermathmemory',memory)
+
 def quadratic_formula():
     global command
     val1, val2, val3 = 0, 0, 0
@@ -127,6 +133,7 @@ def quadratic_formula():
             print(toprint)
             memory = memory + '\n' + 'You entered: a =' + str(a)+'  b =' +str(b)+'  c =' + str(c) + '\nThe equation detected is' + str(equation) + '\nThe solution(s) are' + str(toprint)
             shelvewrite('mastermathmemory',memory)
+
 def factorfinder(number):
     number = int(number)
     factortry = 1
@@ -139,11 +146,13 @@ def factorfinder(number):
                 factors = list(str(factortry))
         factortry += 1
     return (factors)
+
 # initialize memory:
 try:
     memory = shelveread('mastermathmemory')
 except:
     shelvewrite('mastermathmemory','')
+
 while True:
     try:
         print('\n')
@@ -170,6 +179,7 @@ while True:
         print('Clear screen...................clr')
         print('Help center....................hlp')
         command = input('Enter command > ')
+
         try:
             if '+' not in command and '-' not in command and '/' not in command and'*' not in command and '^' not in command:
                 line = command[0] + command[1] + command[2] + command[3]
@@ -178,15 +188,19 @@ while True:
                 line = 'math operation'
         except:
             line = 'clr ' if 'clr' in command else 'hlp '
+
         if line == 'log ':
             logs()
+
         if line == 'qua ':
             quadratic_formula()
+
         if line == 'fac ':
             facs = factorfinder(command)
             print('The factors of the number are: ', facs)
             memory = memory + '\n' + 'Factors of '+ str(command) + ' are ' + str(facs)
             shelvewrite('mastermathmemory',memory)
+
         if line == 'fct ':
             command = command.replace(' ','')
             command = int(command)
@@ -194,54 +208,69 @@ while True:
             command = str(command)
             memory = memory + '\n' + str(command) + ' factorial is ' + str(math.factorial(command))
             shelvewrite('mastermathmemory',memory)
+            
         if '+' in command:
             store = command.replace('+',' ')
             add1, add2 = num_extractor(store,2)
             toprint = command+' = '+ (add1+add2)
             memory = memory + '\n' + toprint
             shelvewrite('mastermathmemory',memory)
+
         if '-' in command:
             store = command.replace('-',' ')
             add1, add2 = num_extractor(store,2)
             print(command,' = ', add1-add2)
+
         if '/' in command:
             store = command.replace('/',' ')
             add1, add2 = num_extractor(store,2)
             print(command,' = ', add1/add2)
+
         if '*' in command:
             store = command.replace('*',' ')
             add1, add2 = num_extractor(store,2)
             print(command,' = ', add1*add2)
+
         if '^' in command:
             store = command.replace('^',' ')
             add1, add2 = num_extractor(store,2)
             print(command,' = ', add1**add2)
+
         if line == 'sqt ':
             command = int(command)
             print(math.sqrt(command))
+
         if line == 'sin ':
             command = int(command)
             print(math.sin(math.radians(command)))
+
         if line == 'cos ':
             command = int(command)
             print(math.cos(math.radians(command)))
+
         if line == 'tan ':
             command = int(command)
             print(math.tan(math.radians(command)))
+
         if line == 'csc ':
             command = int(command)
             print(1/(math.sin(math.radians(command))))
+
         if line == 'sec ':
             command = int(command)
             print(1/(math.cos(math.radians(command))))
+            
         if line == 'cot ':
             command = int(command)
             print(1/(math.tan(math.radians(command))))
+
         if line == 'rad ':
             command = int(command)
             print(math.radians(command))
+
         if line == 'clr ':
             print('\n'*50)
+
         if line == 'hlp ':
             print('\n'*50)
             print('Welcome to the help center')
@@ -258,6 +287,7 @@ while True:
             print('       - square roots')
             print('       - factorials')
             print('  * follow the directions on the home page to activate a function')
+    
     except Exception as e:
         print(e)
         print('sorry, an error occured')
